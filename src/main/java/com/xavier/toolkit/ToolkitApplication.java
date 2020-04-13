@@ -2,6 +2,7 @@ package com.xavier.toolkit;
 
 import com.xavier.toolkit.controller.SysMenuController;
 import com.xavier.toolkit.entity.SysMenu;
+import com.xavier.toolkit.util.URLDetect;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -23,12 +24,17 @@ public class ToolkitApplication {
         ApplicationContext applicationContext =SpringApplication.run(ToolkitApplication.class, args);
         SysMenuController sysMenuController=(SysMenuController)applicationContext.getBean("sysMenuController");
         List<SysMenu> menus = sysMenuController.getAllSysMenus();
-        printURL(menus);
+        updateMenuURLs(menus);
+        URLDetect urlDetect = new URLDetect(menus);
+        for(SysMenu menu : menus) {
+            urlDetect.checkAvailable(menu);
+        }
     }
 
-    public static void printURL(List<SysMenu> menus) {
+    public static void updateMenuURLs(List<SysMenu> menus) {
         for(SysMenu menu : menus) {
-            System.out.println(menu.getMenucode() + "\t\t" + menu.getUrl());
+            if (menu.getUrl() == null) continue;
+            menu.setUrl("http://localhost:8080/report"+menu.getUrl());
         }
     }
 }
