@@ -3,10 +3,12 @@ server:
 
 spring:
   datasource:
-    username: xavier
-    password: xavier
-    url: jdbc:mysql://94.191.112.241:3306/toolkit?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: hr
+    password: hr
+#    url: jdbc:mysql://94.191.112.241:3306/toolkit?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url:  jdbc:oracle:thin:@127.0.0.1:1521:xe
 
 mybatis:
     mapper-locations: com/xavier/toolkit/mapper/*.xml
